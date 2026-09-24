@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv(".env.local")
 
 import higgsfield_client  # noqa: E402  (precisa das variáveis já carregadas)
-from higgsfield_client import NSFW, Cancelled, Completed, Failed, InProgress, Queued  # noqa: E402
+from higgsfield_client import NSFW, Cancelled, Completed, InProgress, Queued  # noqa: E402
 
 MODEL = "bytedance/seedance-2.5/text-to-video"
 ARGUMENTS = {
@@ -25,7 +25,7 @@ ARGUMENTS = {
 
 
 def find_video_url(result):
-    """Procura a URL do vídeo na resposta (formatos comuns: video.url ou videos[0].url)."""
+    """URL do vídeo: a documentação indica o campo video.url (videos[0].url como reserva)."""
     if not isinstance(result, dict):
         return None
     video = result.get("video")
@@ -61,16 +61,19 @@ def main() -> int:
         print(f"Erro ao chamar a API: {type(e).__name__}: {e}", file=sys.stderr)
         return 1
 
-    status = final_status["value"]
     # subscribe() não lança exceção nesses casos: é preciso checar o status final.
-    if isinstance(status, NSFW):
+    # A resposta traz "status" (completed | failed | nsfw | canceled); o callback serve de reserva.
+    api_status = result.get("status") if isinstance(result, dict) else None
+    status = final_status["value"]
+    if api_status == "nsfw" or isinstance(status, NSFW):
         print("Pedido bloqueado pela moderação (NSFW). Nenhum vídeo gerado.", file=sys.stderr)
         return 1
-    if isinstance(status, Cancelled):
+    if api_status in ("canceled", "cancelled") or isinstance(status, Cancelled):
         print("Pedido cancelado. Nenhum vídeo gerado.", file=sys.stderr)
         return 1
-    if isinstance(status, Failed) or not isinstance(status, Completed):
-        print(f"Falha na geração (status: {type(status).__name__}).", file=sys.stderr)
+    if api_status != "completed" and not (api_status is None and isinstance(status, Completed)):
+        detail = result.get("error") if isinstance(result, dict) else None
+        print(f"Falha na geração (status: {api_status or type(status).__name__}). {detail or ''}".strip(), file=sys.stderr)
         return 1
 
     url = find_video_url(result)
