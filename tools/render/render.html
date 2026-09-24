@@ -1,0 +1,82 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>render</title>
+<canvas id="c"></canvas>
+<script>
+// Renderiza uma cena GLSL em blocos, com supersampling por jitter acumulado.
+window.renderScene = async function (scene, w, h, spp, tile) {
+  const load = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error("não encontrado: " + u); return r.text(); });
+  // suporte a: #include "nome"  ->  scenes/_nome.glsl
+  const expand = async (src) => {
+    const parts = await Promise.all(src.split("\n").map(async (line) => {
+      const m = line.match(/^\s*#include\s+"([\w-]+)"/);
+      return m ? expand(await load(`scenes/_${m[1]}.glsl`)) : line;
+    }));
+    return parts.join("\n");
+  };
+  const [common, body] = await Promise.all([load("common.glsl"), load(`scenes/${scene}.glsl`).then(expand)]);
+  const c = document.getElementById("c");
+  c.width = w; c.height = h;
+  const gl = c.getContext("webgl2", { preserveDrawingBuffer: true, antialias: false });
+  gl.getExtension("EXT_color_buffer_float");
+  const vs = `#version 300 es
+in vec2 p; void main(){ gl_Position = vec4(p,0,1); }`;
+  const fs = `#version 300 es\n${common}\n${body}`;
+  const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o);
+    if (!gl.getShaderParameter(o, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(o)); return o; };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+
+  // alvo de acumulação em float
+  const tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, tex);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, w, h, 0, gl.RGBA, gl.FLOAT, null);
+  const fbo = gl.createFramebuffer();
+  gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+  gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+  gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  gl.useProgram(prog);
+  const loc = gl.getAttribLocation(prog, "p");
+  gl.enableVertexAttribArray(loc);
+  gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  gl.uniform2f(gl.getUniformLocation(prog, "uRes"), w, h);
+  const uJ = gl.getUniformLocation(prog, "uJitter");
+  gl.viewport(0, 0, w, h);
+  gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE);
+  gl.enable(gl.SCISSOR_TEST);
+
+  // jitter em grade rotacionada
+  const jit = [];
+  const n = Math.ceil(Math.sqrt(spp));
+  for (let i = 0; i < spp; i++) jit.push([((i % n) + .5) / n - .5, (Math.floor(i / n) + .5) / n - .5]);
+  const pixels = new Float32Array(4);
+  for (let y = 0; y < h; y += tile) for (let x = 0; x < w; x += tile) {
+    gl.scissor(x, y, tile, tile);
+    for (const [jx, jy] of jit) { gl.uniform2f(uJ, jx, jy); gl.drawArrays(gl.TRIANGLES, 0, 3); }
+    gl.readPixels(x, y, 1, 1, gl.RGBA, gl.FLOAT, pixels); // força a conclusão do bloco
+    await new Promise((r) => setTimeout(r, 0));
+  }
+  gl.disable(gl.SCISSOR_TEST); gl.disable(gl.BLEND);
+  const out = new Float32Array(w * h * 4);
+  gl.readPixels(0, 0, w, h, gl.RGBA, gl.FLOAT, out);
+
+  const c2 = document.createElement("canvas");
+  c2.width = w; c2.height = h;
+  const ctx = c2.getContext("2d");
+  const img = ctx.createImageData(w, h);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const si = ((h - 1 - y) * w + x) * 4, di = (y * w + x) * 4;
+    for (let k = 0; k < 3; k++) img.data[di + k] = Math.max(0, Math.min(255, out[si + k] / spp * 255 + .5));
+    img.data[di + 3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+  return c2.toDataURL("image/webp", 0.9);
+};
+</script>
