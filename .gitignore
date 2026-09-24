@@ -1,0 +1,5 @@
+# Credenciais locais — nunca versionar
+.env
+.env.local
+.env.*.local
+__pycache__/
