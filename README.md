@@ -39,3 +39,19 @@ node tools/render/render.cjs                          # todas as cenas, 2560x144
 node tools/render/render.cjs hero keys --w=1920 --h=1080 --spp=2
 node tools/render/render.cjs char-dex --size-char-dex=1200x1600
 ```
+
+## Gerar imagens com a Higgsfield
+
+`tools/higgsfield/generate.py` usa o SDK oficial (`higgsfield-client`) para gerar as imagens do site a partir dos prompts em `tools/higgsfield/prompts.json` e salvá-las em `assets/img/<nome>.webp`.
+
+1. Crie uma chave em https://cloud.higgsfield.ai e defina as variáveis `HF_API_KEY` e `HF_API_SECRET` (ou `HF_KEY="chave:segredo"`).
+2. Rode:
+
+```bash
+pip install -r tools/higgsfield/requirements.txt
+python tools/higgsfield/generate.py --dry-run          # confere os prompts
+python tools/higgsfield/generate.py char-marisol char-dex
+python tools/higgsfield/generate.py                    # todas
+```
+
+Para mudar o visual, edite os prompts no `prompts.json`. Os personagens descritos lá (Marisol Vega e Dex Calloway) são originais.

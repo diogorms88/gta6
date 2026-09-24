@@ -1,0 +1,46 @@
+{
+  "model": "bytedance/seedream/v4/text-to-image",
+  "style": "cinematic video game key art, photorealistic, high detail, dramatic lighting, shot on 35mm, rich color grading, no text, no logos, no watermark",
+  "images": {
+    "char-marisol": {
+      "aspect_ratio": "3:4",
+      "prompt": "Portrait of Marisol Vega, an original character: a Latina woman in her early 30s with a short curly bob, sharp confident eyes, small gold hoop earrings, wearing a long dark burgundy coat over a black top, standing on a wet wooden pier at night, a neon-lit coastal skyline with pink and cyan signs blurred behind her, rim light on her hair, shallow depth of field"
+    },
+    "char-dex": {
+      "aspect_ratio": "3:4",
+      "prompt": "Portrait of Dex Calloway, an original character: a sun-weathered man in his late 30s with a short beard and a faded canvas bucket hat, open light-blue linen shirt over a white tee, standing on the deck of a small speedboat at golden hour, palm-lined beach and calm ocean behind him, warm backlight, relaxed but wary expression, shallow depth of field"
+    },
+    "hero": {
+      "aspect_ratio": "16:9",
+      "prompt": "Wide establishing shot of a tropical coastal city at sunset, palm trees in silhouette in the foreground on a beach, glowing orange and magenta sky with long clouds, the sun reflecting on the ocean, a distant skyline of glass towers on a headland"
+    },
+    "beach-day": {
+      "aspect_ratio": "16:9",
+      "prompt": "Bright midday tropical beach, white sand with palm shadows, turquoise shallow water, lifeguard tower painted in pastel colors, people sunbathing far away, a distant city skyline on the horizon, deep blue sky with cumulus clouds"
+    },
+    "coral-city": {
+      "aspect_ratio": "16:9",
+      "prompt": "Coastal metropolis at night seen across a bay, dense skyscrapers with thousands of lit windows, pink and cyan neon signs on rooftops, a full moon, long reflections of the city lights on calm dark water"
+    },
+    "city-dusk": {
+      "aspect_ratio": "16:9",
+      "prompt": "Oceanfront boulevard at dusk, art deco hotels with pastel facades and glowing neon trims, palm trees lining the street, classic convertible cars, warm purple and orange sky, wet asphalt reflecting the lights"
+    },
+    "keys": {
+      "aspect_ratio": "16:9",
+      "prompt": "Aerial drone shot of a chain of small tropical islands connected by a very long straight two-lane bridge over turquoise shallow water, sandbars, mangroves, a speedboat leaving a white wake, scattered cumulus clouds casting shadows on the sea"
+    },
+    "glades": {
+      "aspect_ratio": "16:9",
+      "prompt": "Swamp wetlands at dawn, cypress trees draped with hanging moss, low golden mist over still water, an airboat parked among tall sawgrass, an alligator's eyes breaking the surface, soft sunbeams through the fog"
+    },
+    "port": {
+      "aspect_ratio": "16:9",
+      "prompt": "Industrial shipping port at sunset, colorful stacked shipping containers, huge red gantry cranes, a cargo ship docked, workers' pickup trucks, orange haze and long shadows, reflections on the harbor water"
+    },
+    "mountain": {
+      "aspect_ratio": "16:9",
+      "prompt": "Mountain range at twilight, snow-capped peak glowing with the last pink light, pine forests in the valleys, low fog between the ridges, a winding road with car headlights, first stars and the milky way in a deep blue sky"
+    }
+  }
+}
