@@ -1,5 +1,5 @@
 {
-  "model": "bytedance/seedream/v4/text-to-image",
+  "model": "higgsfield-ai/soul/v2/standard",
   "style": "cinematic video game key art, photorealistic, high detail, dramatic lighting, shot on 35mm, rich color grading, no text, no logos, no watermark",
   "images": {
     "char-marisol": {

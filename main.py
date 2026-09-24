@@ -1,4 +1,4 @@
-"""Exemplo: gera um vídeo com Seedance 2.5 (texto -> vídeo) usando o SDK oficial da Higgsfield.
+"""Exemplo: gera uma imagem com Soul V2 (texto -> imagem) usando o SDK oficial da Higgsfield.
 
 Credenciais: HF_KEY="key-id:key-secret" em .env.local (ignorado pelo git).
 Uso:
@@ -15,25 +15,21 @@ load_dotenv(".env.local")
 import higgsfield_client  # noqa: E402  (precisa das variáveis já carregadas)
 from higgsfield_client import NSFW, Cancelled, Completed, InProgress, Queued  # noqa: E402
 
-MODEL = "bytedance/seedance-2.5/text-to-video"
+MODEL = "higgsfield-ai/soul/v2/standard"
 ARGUMENTS = {
     "prompt": "A cinematic scene at sunset",
-    "duration": 5,
-    "resolution": "720p",
+    "resolution": "1080p",
     "aspect_ratio": "16:9",
 }
 
 
-def find_video_url(result):
-    """URL do vídeo: a documentação indica o campo video.url (videos[0].url como reserva)."""
+def find_image_url(result):
+    """URL da imagem: a documentação indica o campo images[0].url."""
     if not isinstance(result, dict):
         return None
-    video = result.get("video")
-    if isinstance(video, dict) and video.get("url"):
-        return video["url"]
-    videos = result.get("videos")
-    if isinstance(videos, list) and videos and isinstance(videos[0], dict) and videos[0].get("url"):
-        return videos[0]["url"]
+    images = result.get("images")
+    if isinstance(images, list) and images and isinstance(images[0], dict) and images[0].get("url"):
+        return images[0]["url"]
     return None
 
 
@@ -66,21 +62,21 @@ def main() -> int:
     api_status = result.get("status") if isinstance(result, dict) else None
     status = final_status["value"]
     if api_status == "nsfw" or isinstance(status, NSFW):
-        print("Pedido bloqueado pela moderação (NSFW). Nenhum vídeo gerado.", file=sys.stderr)
+        print("Pedido bloqueado pela moderação (NSFW). Nenhuma imagem gerada.", file=sys.stderr)
         return 1
     if api_status in ("canceled", "cancelled") or isinstance(status, Cancelled):
-        print("Pedido cancelado. Nenhum vídeo gerado.", file=sys.stderr)
+        print("Pedido cancelado. Nenhuma imagem gerada.", file=sys.stderr)
         return 1
     if api_status != "completed" and not (api_status is None and isinstance(status, Completed)):
         detail = result.get("error") if isinstance(result, dict) else None
         print(f"Falha na geração (status: {api_status or type(status).__name__}). {detail or ''}".strip(), file=sys.stderr)
         return 1
 
-    url = find_video_url(result)
+    url = find_image_url(result)
     if not url:
-        print(f"Concluído, mas sem URL de vídeo na resposta. Chaves recebidas: {list(result)}", file=sys.stderr)
+        print(f"Concluído, mas sem URL de imagem na resposta. Chaves recebidas: {list(result)}", file=sys.stderr)
         return 1
-    print(f"Vídeo: {url}")
+    print(f"Imagem: {url}")
     return 0
 
 

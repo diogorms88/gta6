@@ -13,6 +13,7 @@ As imagens são salvas em assets/img/<nome>.webp, substituindo as renderizaçõe
 (o histórico do git guarda as versões anteriores).
 """
 import argparse
+from dotenv import load_dotenv
 import io
 import json
 import os
@@ -41,10 +42,11 @@ def save_webp(url: str, dest: Path) -> None:
 
 
 def main() -> int:
+    load_dotenv(ROOT / ".env.local")
     ap = argparse.ArgumentParser()
     ap.add_argument("names", nargs="*", help="nomes das imagens (padrão: todas)")
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--resolution", default="2K")
+    ap.add_argument("--resolution", default="1080p", choices=["720p", "1080p"])
     args = ap.parse_args()
 
     cfg = json.loads(PROMPTS.read_text(encoding="utf-8"))
@@ -77,9 +79,11 @@ def main() -> int:
                     "prompt": f"{spec['prompt']}. {cfg['style']}",
                     "resolution": args.resolution,
                     "aspect_ratio": spec["aspect_ratio"],
-                    "camera_fixed": False,
                 },
             )
+            # subscribe() devolve o JSON mesmo em falha/moderação: conferir o status.
+            if result.get("status") != "completed":
+                raise RuntimeError(f"status {result.get('status')} {result.get('error') or ''}".strip())
             save_webp(result["images"][0]["url"], OUT / f"{n}.webp")
         except Exception as e:  # segue para as próximas imagens
             print(f"  falhou: {e}")
