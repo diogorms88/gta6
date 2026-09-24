@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEON TIDE — Bem-vindo a Palmera</title>
+  <meta name="description" content="NEON TIDE: um jogo de mundo aberto fictício ambientado no estado ensolarado de Palmera.">
+  <meta name="theme-color" content="#0b0416">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/anton-latin-400-normal.woff2" crossorigin>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0416'/%3E%3Ctext x='16' y='23' font-family='Impact,sans-serif' font-size='18' text-anchor='middle' fill='%23ff3d8b'%3ENT%3C/text%3E%3C/svg%3E">
+  <link rel="preload" as="image" href="assets/img/hero.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="is-loading">
+
+  <!-- Loader -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__logo">
+      <span>N</span><span>T</span>
+    </div>
+    <div class="loader__bar"><i></i></div>
+  </div>
+
+  <!-- Navegação -->
+  <header class="nav">
+    <a class="nav__brand" href="#top" aria-label="Início">
+      <span class="brand-mark">NT</span>
+    </a>
+    <nav class="nav__links" aria-label="Seções">
+      <a href="#personagens">Personagens</a>
+      <a href="#palmera">Palmera</a>
+      <a href="#locais">Locais</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#trailer">Trailers</a>
+    </nav>
+    <div class="nav__right">
+      <a class="btn btn--small" href="#lancamento">Lista de desejos</a>
+      <button class="nav__burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="menu" aria-hidden="true">
+    <nav>
+      <a href="#personagens">Personagens</a>
+      <a href="#palmera">Palmera</a>
+      <a href="#locais">Locais</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#trailer">Trailers</a>
+      <a href="#lancamento">Lançamento</a>
+    </nav>
+  </div>
+
+  <main id="top">
+
+    <!-- 1. INTRO: imagem revelada pela máscara do título -->
+    <section class="intro" aria-label="Introdução">
+      <div class="intro__pin">
+        <div class="intro__media">
+          <img class="intro__img" src="assets/img/hero.svg" alt="Pôr do sol sobre Coral City com palmeiras em silhueta" width="1920" height="1080">
+          <div class="intro__shade"></div>
+        </div>
+
+        <!-- Camada escura com o título vazado -->
+        <svg class="intro__mask" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <mask id="titleMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1920" height="1080">
+              <rect width="1920" height="1080" fill="#fff"/>
+              <g class="intro__maskText">
+                <text x="960" y="450" text-anchor="middle" dominant-baseline="middle">NEON</text>
+                <text x="960" y="770" text-anchor="middle" dominant-baseline="middle" class="t2">TIDE</text>
+              </g>
+            </mask>
+            <linearGradient id="maskFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#12061f"/>
+              <stop offset="1" stop-color="#050209"/>
+            </linearGradient>
+          </defs>
+          <rect width="1920" height="1080" fill="url(#maskFill)" mask="url(#titleMask)"/>
+        </svg>
+
+        <div class="intro__copy">
+          <p class="eyebrow">Um mundo aberto no litoral de Palmera</p>
+          <h1 class="intro__headline">
+            <span class="line"><span>Bem-vindo</span></span>
+            <span class="line"><span>a Palmera</span></span>
+          </h1>
+          <p class="intro__sub">Chegando no <strong>Outono de 2027</strong></p>
+        </div>
+
+        <div class="scroll-hint" aria-hidden="true">
+          <span>Role</span>
+          <i></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Frase de abertura -->
+    <section class="statement">
+      <p class="statement__text split-words">
+        Sol forte, dinheiro fácil e ninguém de confiança. Em Palmera, toda noite de néon termina com uma dívida — e toda dívida termina com alguém fugindo pela costa.
+      </p>
+    </section>
+
+    <!-- 3. PERSONAGENS -->
+    <section id="personagens" class="chars">
+      <header class="section-head">
+        <span class="eyebrow">Personagens</span>
+        <h2 class="display reveal-lines"><span class="line"><span>Dois fugitivos,</span></span><span class="line"><span>uma costa inteira</span></span></h2>
+      </header>
+
+      <article class="char" data-theme="pink">
+        <div class="char__media">
+          <div class="char__frame">
+            <img src="assets/img/char-marisol.svg" alt="Retrato estilizado de Marisol Vega" loading="lazy" width="1200" height="1600">
+          </div>
+          <span class="char__index">01</span>
+        </div>
+        <div class="char__body">
+          <h3 class="char__name">
+            <span class="line"><span>Marisol</span></span>
+            <span class="line"><span>Vega</span></span>
+          </h3>
+          <p class="char__lede">Cresceu entre marinas e casas de penhor. Aprendeu cedo que em Palmera ninguém dá nada de graça — e decidiu parar de pedir.</p>
+          <p>Depois de três anos presa por um crime que não planejou, Marisol sai com uma única meta: nunca mais depender da sorte. Tem um plano, contatos em todo o litoral e muito pouco a perder.</p>
+          <blockquote class="char__quote">“Não é roubo se ninguém sentir falta.”</blockquote>
+          <div class="char__thumbs">
+            <button class="thumb" data-full="assets/img/coral-city.svg"><img src="assets/img/coral-city.svg" alt="Coral City à noite" loading="lazy"></button>
+            <button class="thumb" data-full="assets/img/beach-day.svg"><img src="assets/img/beach-day.svg" alt="Praia durante o dia" loading="lazy"></button>
+            <button class="thumb" data-full="assets/img/keys.svg"><img src="assets/img/keys.svg" alt="Ponte sobre as ilhas" loading="lazy"></button>
+          </div>
+        </div>
+      </article>
+
+      <article class="char char--reverse" data-theme="blue">
+        <div class="char__media">
+          <div class="char__frame">
+            <img src="assets/img/char-dex.svg" alt="Retrato estilizado de Dex Calloway" loading="lazy" width="1200" height="1600">
+          </div>
+          <span class="char__index">02</span>
+        </div>
+        <div class="char__body">
+          <h3 class="char__name">
+            <span class="line"><span>Dex</span></span>
+            <span class="line"><span>Calloway</span></span>
+          </h3>
+          <p class="char__lede">Ex-piloto de lancha, atual faz-tudo de gente perigosa. Dex sempre esteve a um favor de distância de uma vida tranquila.</p>
+          <p>Ele conhece cada canal do pântano e cada doca do porto. Quando Marisol aparece com uma proposta arriscada, Dex percebe que talvez seja a última chance de sair do jogo — ou de afundar de vez.</p>
+          <blockquote class="char__quote">“Eu só dirijo. O resto é problema seu.”</blockquote>
+          <div class="char__thumbs">
+            <button class="thumb" data-full="assets/img/glades.svg"><img src="assets/img/glades.svg" alt="Pântano sob a lua" loading="lazy"></button>
+            <button class="thumb" data-full="assets/img/port.svg"><img src="assets/img/port.svg" alt="Porto industrial ao entardecer" loading="lazy"></button>
+            <button class="thumb" data-full="assets/img/city-dusk.svg"><img src="assets/img/city-dusk.svg" alt="Cidade ao anoitecer" loading="lazy"></button>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- 4. PALMERA: imagem que expande ao rolar -->
+    <section id="palmera" class="expand">
+      <div class="expand__pin">
+        <div class="expand__frame">
+          <img src="assets/img/coral-city.svg" alt="Horizonte de Coral City com letreiros de néon" loading="lazy">
+        </div>
+        <div class="expand__copy">
+          <span class="eyebrow">O estado de Palmera</span>
+          <h2 class="display">Coral City<br>nunca dorme</h2>
+          <p>Arranha-céus de vidro, clubes na orla e uma polícia que prefere não olhar muito de perto. A maior cidade de Palmera é o palco — e o prêmio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Letreiro rolante -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Coral City</span><i>✦</i><span>Ilhas Salinas</span><i>✦</i><span>Pântano Verde</span><i>✦</i><span>Porto Ferro</span><i>✦</i><span>Serra Alta</span><i>✦</i><span>Praia Dourada</span><i>✦</i>
+        <span>Coral City</span><i>✦</i><span>Ilhas Salinas</span><i>✦</i><span>Pântano Verde</span><i>✦</i><span>Porto Ferro</span><i>✦</i><span>Serra Alta</span><i>✦</i><span>Praia Dourada</span><i>✦</i>
+      </div>
+    </section>
+
+    <!-- 6. LOCAIS: rolagem horizontal -->
+    <section id="locais" class="places">
+      <div class="places__pin">
+        <header class="places__head">
+          <span class="eyebrow">Locais</span>
+          <h2 class="display">Explore<br>Palmera</h2>
+          <div class="places__progress"><i></i></div>
+        </header>
+        <div class="places__track">
+          <article class="place">
+            <div class="place__img"><img src="assets/img/coral-city.svg" alt="" loading="lazy"></div>
+            <div class="place__info"><span>01</span><h3>Coral City</h3><p>A metrópole de néon onde fortunas mudam de mão a cada esquina.</p></div>
+          </article>
+          <article class="place">
+            <div class="place__img"><img src="assets/img/keys.svg" alt="" loading="lazy"></div>
+            <div class="place__info"><span>02</span><h3>Ilhas Salinas</h3><p>Pontes infinitas, água turquesa e contrabando à luz do dia.</p></div>
+          </article>
+          <article class="place">
+            <div class="place__img"><img src="assets/img/glades.svg" alt="" loading="lazy"></div>
+            <div class="place__info"><span>03</span><h3>Pântano Verde</h3><p>Mangues, neblina e segredos que o jacaré guarda melhor que ninguém.</p></div>
+          </article>
+          <article class="place">
+            <div class="place__img"><img src="assets/img/port.svg" alt="" loading="lazy"></div>
+            <div class="place__info"><span>04</span><h3>Porto Ferro</h3><p>Guindastes, contêineres e uma cidade operária que não faz perguntas.</p></div>
+          </article>
+          <article class="place">
+            <div class="place__img"><img src="assets/img/mountain.svg" alt="" loading="lazy"></div>
+            <div class="place__info"><span>05</span><h3>Serra Alta</h3><p>Estradas sinuosas sob a Via Láctea, longe de qualquer testemunha.</p></div>
+          </article>
+          <article class="place">
+            <div class="place__img"><img src="assets/img/beach-day.svg" alt="" loading="lazy"></div>
+            <div class="place__info"><span>06</span><h3>Praia Dourada</h3><p>Areia branca, iates e festas que só terminam quando a polícia chega.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Parallax em camadas -->
+    <section class="parallax">
+      <div class="parallax__bg"><img src="assets/img/mountain.svg" alt="" loading="lazy"></div>
+      <div class="parallax__copy">
+        <h2 class="display split-chars">Sem saída.</h2>
+        <p class="reveal-up">Cada decisão deixa rastro. Cada rastro leva até você.</p>
+      </div>
+    </section>
+
+    <!-- 8. GALERIA -->
+    <section id="galeria" class="gallery">
+      <header class="section-head">
+        <span class="eyebrow">Galeria</span>
+        <h2 class="display reveal-lines"><span class="line"><span>Capturas de</span></span><span class="line"><span>Palmera</span></span></h2>
+      </header>
+      <div class="gallery__grid">
+        <button class="g-item g-item--wide" data-full="assets/img/hero.svg"><img src="assets/img/hero.svg" alt="Pôr do sol na orla" loading="lazy"></button>
+        <button class="g-item g-item--tall" data-full="assets/img/char-marisol.svg"><img src="assets/img/char-marisol.svg" alt="Marisol Vega" loading="lazy"></button>
+        <button class="g-item" data-full="assets/img/keys.svg"><img src="assets/img/keys.svg" alt="Ilhas Salinas" loading="lazy"></button>
+        <button class="g-item" data-full="assets/img/port.svg"><img src="assets/img/port.svg" alt="Porto Ferro" loading="lazy"></button>
+        <button class="g-item g-item--tall" data-full="assets/img/char-dex.svg"><img src="assets/img/char-dex.svg" alt="Dex Calloway" loading="lazy"></button>
+        <button class="g-item g-item--wide" data-full="assets/img/glades.svg"><img src="assets/img/glades.svg" alt="Pântano Verde" loading="lazy"></button>
+        <button class="g-item" data-full="assets/img/city-dusk.svg"><img src="assets/img/city-dusk.svg" alt="Cidade ao anoitecer" loading="lazy"></button>
+        <button class="g-item" data-full="assets/img/beach-day.svg"><img src="assets/img/beach-day.svg" alt="Praia Dourada" loading="lazy"></button>
+      </div>
+    </section>
+
+    <!-- 9. TRAILERS -->
+    <section id="trailer" class="trailers">
+      <header class="section-head">
+        <span class="eyebrow">Trailers</span>
+        <h2 class="display reveal-lines"><span class="line"><span>Assista</span></span></h2>
+      </header>
+      <div class="trailers__list">
+        <button class="trailer" data-full="assets/img/hero.svg">
+          <div class="trailer__img"><img src="assets/img/hero.svg" alt="" loading="lazy"></div>
+          <div class="trailer__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="trailer__meta"><span>Trailer 1</span><h3>Bem-vindo a Palmera</h3></div>
+        </button>
+        <button class="trailer" data-full="assets/img/coral-city.svg">
+          <div class="trailer__img"><img src="assets/img/coral-city.svg" alt="" loading="lazy"></div>
+          <div class="trailer__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="trailer__meta"><span>Trailer 2</span><h3>Marisol &amp; Dex</h3></div>
+        </button>
+      </div>
+    </section>
+
+    <!-- 10. LANÇAMENTO -->
+    <section id="lancamento" class="launch">
+      <div class="launch__bg"><img src="assets/img/city-dusk.svg" alt="" loading="lazy"></div>
+      <div class="launch__inner">
+        <div class="launch__logo split-chars">NEON TIDE</div>
+        <p class="launch__date reveal-up">Outono de 2027</p>
+        <div class="countdown reveal-up" data-target="2027-10-15T00:00:00">
+          <div><b data-cd="d">000</b><span>dias</span></div>
+          <div><b data-cd="h">00</b><span>horas</span></div>
+          <div><b data-cd="m">00</b><span>min</span></div>
+          <div><b data-cd="s">00</b><span>seg</span></div>
+        </div>
+        <div class="launch__platforms reveal-up">
+          <span>Console A</span><span>Console B</span><span>PC</span>
+        </div>
+        <a class="btn reveal-up" href="#top">Adicionar à lista de desejos</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand">NEON TIDE</div>
+    <p>Projeto de fã, fictício e sem fins lucrativos. Personagens, locais e ilustrações são originais.</p>
+    <nav>
+      <a href="#personagens">Personagens</a>
+      <a href="#locais">Locais</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#top">Voltar ao topo ↑</a>
+    </nav>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" aria-hidden="true" role="dialog" aria-label="Visualizador de imagens">
+    <button class="lightbox__close" aria-label="Fechar">✕</button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Anterior">‹</button>
+    <img class="lightbox__img" alt="">
+    <button class="lightbox__nav lightbox__next" aria-label="Próxima">›</button>
+    <div class="lightbox__count"></div>
+  </div>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
