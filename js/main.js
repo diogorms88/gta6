@@ -68,7 +68,8 @@
       .from(".hero__row > span", { yPercent: 105, duration: 1.4, stagger: 0.12, ease: "expo.out" }, "-=0.5")
       .from(".hero__card", { clipPath: "inset(50% 50% 50% 50% round 28px)", duration: 1.6, ease: "expo.out" }, "<0.1")
       .from(".hero__card img", { scale: 1.4, duration: 1.8, ease: "expo.out" }, "<")
-      .from(".hero__meta p, .nav, .hero__scroll", { opacity: 0, y: 20, duration: 1, stagger: 0.08, ease: "expo.out" }, "<0.4");
+      .from(".hero__meta p, .nav, .hero__scroll", { opacity: 0, y: 20, duration: 1, stagger: 0.08, ease: "expo.out" }, "<0.4")
+      .add(() => $(".hero__card").revealDemo?.(), "-=0.6");
   }
 
   // ---------------------------------------------------------- Hero no scroll
@@ -189,13 +190,14 @@
     const box = $(".lightbox"), big = $(".lightbox__img");
     const open = (src, alt) => { big.src = src; big.alt = alt || ""; box.classList.add("is-open"); box.setAttribute("aria-hidden", "false"); lenis?.stop(); };
     const close = () => { box.classList.remove("is-open"); box.setAttribute("aria-hidden", "true"); lenis?.start(); };
-    $$(".hero__card, .side__img, .card").forEach((el) => el.addEventListener("click", () => { const i = $("img", el); open(i.currentSrc || i.src, i.alt); }));
+    $$(".side__img, .card").forEach((el) => el.addEventListener("click", () => { const i = $("img", el); open(i.currentSrc || i.src, i.alt); }));
     $(".lightbox__close").addEventListener("click", close);
     box.addEventListener("click", (e) => { if (e.target === box) close(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") { close(); toggleMenu(false); } });
   }
 
   function init() {
+    window.NeonReveal?.start();
     hero(); ticker(); manifesto(); sides(); collection(); stats(); roster(); launch(); navActive(); lightbox();
     loader();
     window.addEventListener("load", () => ScrollTrigger.refresh());
